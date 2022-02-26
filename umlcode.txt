@@ -1,6 +1,6 @@
 @startuml
-:User: -> (Activate robot)
 :Camera: -> (Detect graffiti)
+:Camera: -> (Send image)
 :Robot: -up-> (Shoot water)
 :Robot: -left-> (Move forward)
 :Robot: -> (Move backward)
