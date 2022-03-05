@@ -1,0 +1,10 @@
+@startuml
+:Camera: -> (Detect graffiti)
+:Camera: -> (Send image)
+:Robot: -up-> (Shoot water)
+:Robot: -left-> (Move forward)
+:Robot: -> (Move backward)
+:Robot: --> (Rotate right)
+:Robot: --> (Rotate left)
+:Robot: --> (Find graffiti)
+@enduml
