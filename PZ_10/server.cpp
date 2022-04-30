@@ -1,7 +1,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <iostream>
 #include <string>
@@ -30,17 +29,7 @@ public:
 
 class ConsoleCommandStrategy : public CommandStrategy {
 public: string getCommand() {
-int sock;
-  struct sockaddr_in addr;
-  char reply[1024];
-  int bytes_read;
-  sock = socket(AF_INET, SOCK_DGRAM, 0);
-  
-  addr.sin_family = AF_INET;
-  addr.sin_port = htons(3425);
-  addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    bytes_read = recvfrom(sock, reply, 1024, 0, NULL, NULL);
-    reply[bytes_read] = '\0';
+    string reply;
     cin >> reply;
     return reply;
 };
@@ -212,27 +201,10 @@ close(sock);
   }
 };
 
+
 int main() {
-  int sock;
-  struct sockaddr_in addr;
-  char buf[1024];
-  int bytes_read;
-  sock = socket(AF_INET, SOCK_DGRAM, 0);
-  
-  addr.sin_family = AF_INET;
-  addr.sin_port = htons(3425);
-  addr.sin_addr.s_addr = htonl(INADDR_ANY);
-  if(bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-    perror("bind");
-    return 1;
-  }
 Robot * p = new Robot(new ConsoleCommandStrategy);
 p -> handle();
-  while(1) {
-    bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-    buf[bytes_read] = '\0';
-    printf("%s\n", buf);
-  }
-delete p;
-
+ delete p;
+ return 0;
 }
